@@ -4871,6 +4871,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5d63b830d914e64eb0d0645f986467c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefabMaterial: {fileID: 2100000, guid: 9b223ba18e6b19443b563f5abc6981e9, type: 2}
+  material: {fileID: 0}
+  lineRenderer: {fileID: 0}
 --- !u!120 &5238570228697279500
 LineRenderer:
   m_ObjectHideFlags: 0
