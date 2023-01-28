@@ -4,10 +4,10 @@ using UnityEngine;
 using DG.Tweening;
 using Select;
 using Inputs;
-public class PotionMovement : MonoBehaviour
+public class PotionMovement : Singleton<PotionMovement>
 {
-    [SerializeField] private AudioClip [] clinkSounds; // sounds
     public AudioClip clip;       //
+    [SerializeField] private AudioClip [] clinkSounds; // sounds
 
     [SerializeField] private GameObject closeIcon, touchMoveIcon; // UI
 
@@ -17,6 +17,7 @@ public class PotionMovement : MonoBehaviour
    
     private Vector3 _oldPos;
     private Quaternion _oldRot;
+
     private void OnEnable()
     {
         SelectManager.Instance.onSelectPotion += SelectMove;
@@ -70,7 +71,7 @@ public class PotionMovement : MonoBehaviour
                 gameObject.transform.parent.rotation = rot;
 
             }
-            //Mathf.Clamp(gameObject.transform.parent.rotation.x, -30, 45);
         }
     }
+    
 }

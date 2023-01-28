@@ -12,3 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a702cc872c474944b7c61e81273b644, type: 3}
   m_Name: InputData
   m_EditorClassIdentifier: 
+  _touchPos: {x: 807.8572, y: 966.28564}
+  _isClick: 0
+  _isEnd: 0
+  _isMove: 0
+  _deltaPosition: {x: 0, y: 0}
+  _swipeLeft: 0
+  _swipeRight: 0
+  _swipeUp: 0
+  _swipeDown: 0
+  swipeDistance: 0

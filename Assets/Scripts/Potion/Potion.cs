@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Potion : MonoBehaviour
 {
     public ColorType colorType;
+    public Image fillImage;
     public Color color;
     private void Start()
     {

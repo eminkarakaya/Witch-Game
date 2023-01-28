@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 public enum ColorType
 {
+    Null,
     Red,
     Blue,
     Purple,
@@ -11,15 +13,27 @@ public enum ColorType
 }
 public class Bottle : MonoBehaviour
 {
+    [SerializeField] private Transform parent;
+    [SerializeField] private Vector3 pos;
     [SerializeField] private List<ColorTypeClass> colorTypes;
     [SerializeField] private Material materialPrefab;
     [SerializeField] private float capacity, full, fillAmount;
-    public Potion potion;
-    float totalRed = 0f;
-    float totalGreen = 0f;
-    float totalBlue = 0f;
     [SerializeField] private float lerp;
-
+    private Image _currentImage;
+    [SerializeField] private Color? _currentColor  = null;
+    public ColorType colorType;
+    public Potion potion;
+    private void OnEnable()
+    {
+        StageManager.Instance.onSwipeLeft += CheckPotionImageActive;
+        StageManager.Instance.onSwipeRight += CheckPotionImageActive;
+    }
+    private void OnDisable()
+    {
+        StageManager.Instance.onSwipeLeft -= CheckPotionImageActive;
+        StageManager.Instance.onSwipeRight -= CheckPotionImageActive;
+        
+    }
     private void Start()
     {
         potion = GetComponent<Potion>();
@@ -36,40 +50,70 @@ public class Bottle : MonoBehaviour
             if (potion.colorType == item.colorType)
             {
                 currentColorTypeClass = item;
+                break;
             }
         }
-
+        
+        if (_currentColor == null || _currentColor != currentColorTypeClass.color)
+        {
+            _currentImage = Instantiate(potion.fillImage, Vector3.zero, Quaternion.identity, parent);
+            _currentImage.transform.SetSiblingIndex(0);
+            _currentImage.GetComponent<RectTransform>().anchoredPosition = pos;
+        }
+        _currentColor = currentColorTypeClass.color;
+        _currentImage.fillAmount = (full / capacity);
         full += fillAmount;
-        currentColorTypeClass.amount += fillAmount;
+        currentColorTypeClass.Amount += fillAmount;
+        if (currentColorTypeClass.full)
+        {
+            colorType = currentColorTypeClass.colorType;
+        }
         GetComponent<MeshRenderer>().material.SetFloat("_Fill", (full / capacity) - .5f);
         this.potion.color = Color.Lerp(this.potion.color, potion.color, fillAmount / full);
         GetComponent<MeshRenderer>().material.SetColor("_Color_1",this.potion.color);
         GetComponent<MeshRenderer>().material.SetColor("_SideColor",this.potion.color);
     }
    
-    public void SetColor(List<Potion> colors)
+    private void CheckPotionImageActive()
     {
-        Color result = new Color(0, 0, 0);
-        foreach (var item in colors)
+        if (StageManager.Instance.index == 0)
         {
-            result += item.color;
+            parent.gameObject.SetActive(true);
+        }
+        else if (StageManager.Instance.index == 1)
+        {
+            parent.gameObject.SetActive(false);
         }
     }
-
-    [ContextMenu("Mix")]
-    public void Mix()
+    public void TogglePotionImage(bool value)
     {
-        potion.color = Color.Lerp(potion.color, colorTypes[1].color, colorTypes[1].amount/full);
-        GetComponent<MeshRenderer>().material.SetColor("_SideColor",potion.color);
-        GetComponent<MeshRenderer>().material.SetColor("_Color_1", potion.color);
+        parent.gameObject.SetActive(value);
     }
-
 }
 [System.Serializable]
 public class ColorTypeClass
 {
+    public bool half, full;
     public ColorType colorType;
     public Color color;
-    public float amount;
+    private float amount;
+    private float halfAmount = 35, fullAmount = 70;
+    public float Amount
+    {
+        get { return amount; }
+        set 
+        { 
+            amount = value; 
+            if(amount >= halfAmount)
+                half = true;
+            else
+                half = false;
+            
+            if (amount >= fullAmount)
+                full = true;
+            else
+                full = false;
+        }
+    }
 }
 

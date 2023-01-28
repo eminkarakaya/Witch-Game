@@ -7,46 +7,83 @@ namespace Select
 {
     public class SelectManager : Singleton<SelectManager>
     {
+        [SerializeField] private float yPos;
         [SerializeField] private InputData _inputData;
-        [SerializeField] private GameObject _selectedObject;
+        [SerializeField] private GameObject _selectedBasePotion,_selectedEmptyPotion;
         public delegate void OnSelectPotion(GameObject gameObject);
         public delegate void OnCancelPotion(GameObject gameObject);
+        public delegate void OnSellPotion();
         public OnSelectPotion onSelectPotion;
-        public OnSelectPotion onCancelPotion;
+        public OnCancelPotion onCancelPotion;
+        public OnSellPotion onSellPotion;
         //public LayerMask mask;
+        [SerializeField] bool isSelected = false;
         private void Update()
         {
-            SelectPotion();
+            SelectBasePotion();
         }
-        private void SelectPotion()
+        private void SelectBasePotion()
         {
             if (_inputData.IsClick)
             {
-                if (_selectedObject != null)
-                    return;
                 RaycastHit hit = CastRay();
                 if (hit.collider != null)
                 {
-
-                    if (!hit.collider.TryGetComponent(out Potion potion))
+                    if (hit.collider.TryGetComponent(out PotionBase potion))
                     {
-                        return;
+                        if (_selectedBasePotion != null)
+                            return;
+                        _selectedBasePotion = hit.collider.transform.parent.gameObject;
+                        onSelectPotion?.Invoke(_selectedBasePotion);
                     }
-                    
-                    _selectedObject = hit.collider.transform.parent.gameObject;
-                    onSelectPotion?.Invoke(_selectedObject);
+                    else if (hit.collider.TryGetComponent(out EmptyPotion emptyPotion))
+                    {
+                        isSelected = true;
+                    }
+                    else if (hit.collider.TryGetComponent(out Chest chest))
+                    {
+                        if(_selectedEmptyPotion ==null)
+                        {
+                            _selectedEmptyPotion = chest.CreatePotion();
+                        }
+                    }
                 }
             }
+            if(isSelected)
+            {
+                RaycastHit hit = CastRay();
+                Drag(hit);
+            }
+            if (_inputData.IsEnd)
+            {
+                if(isSelected && _selectedEmptyPotion != null)
+                    _selectedEmptyPotion.transform.GetChild(0).GetComponent<EmptyPotion>().Back();
+                isSelected = false;
+            }
+        }
+        public void Drag(RaycastHit hit)
+        {
+            if (StageManager.Instance.index != 1)
+                return;
+            if (_selectedEmptyPotion == null)
+                return;
+            Vector3 position = new Vector3(_inputData.TouchPosition.x, _inputData.TouchPosition.y, Camera.main.WorldToScreenPoint(_selectedEmptyPotion.transform.position).z);
+            Vector3 worldPos = Camera.main.ScreenToWorldPoint(position);
+            _selectedEmptyPotion.transform.position = new Vector3(worldPos.x, yPos, worldPos.z);
         }
         public void CancelPotion()
         {
-            onCancelPotion?.Invoke(_selectedObject);
-            _selectedObject = null;
+            onCancelPotion?.Invoke(_selectedBasePotion);
+            _selectedBasePotion = null;
 
         }
         public GameObject GetSelectedObject()
         {
-            return _selectedObject;
+            return _selectedBasePotion;
+        }
+        public void NullSelectedEmptyPotion()
+        {
+            _selectedEmptyPotion = null;
         }
         private RaycastHit CastRay()
         {

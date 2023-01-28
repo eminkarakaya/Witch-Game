@@ -8,27 +8,38 @@ namespace CameraController
     public class CameraController : MonoBehaviour
     {
         [SerializeField] private float _dur;
+        [SerializeField] private Vector3[] _rotates;
         private Vector3 _oldCamPos;
-        [SerializeField] private Transform zoomTransform;
+        [SerializeField] private Transform _zoomTransform;
+        public Transform potionPos;
         private void OnEnable()
         {
             SelectManager.Instance.onSelectPotion += ZoomIn;
             SelectManager.Instance.onCancelPotion += ZoomOut;
+            StageManager.Instance.onSwipeLeft += Rotate;
+            StageManager.Instance.onSwipeRight += Rotate;
         }
         private void OnDisable()
         {
             SelectManager.Instance.onSelectPotion -= ZoomIn;
             SelectManager.Instance.onCancelPotion -= ZoomOut;
+            StageManager.Instance.onSwipeLeft -= Rotate;
+            StageManager.Instance.onSwipeRight -= Rotate;
         }
         public void ZoomIn(GameObject gameObject)
         {
-            _oldCamPos = transform.position;
-            transform.DOMove(zoomTransform.position, _dur);
+            //_oldCamPos = transform.position;
+            //transform.DOMove(_zoomTransform.position, _dur);
         }
         public void ZoomOut(GameObject gameObject)
         {
-            transform.DOMove(_oldCamPos, _dur);
-
+            //transform.DOMove(_oldCamPos, _dur);
+        }
+        public void Rotate()
+        {
+            transform.DORotate(_rotates[StageManager.Instance.index], _dur).OnComplete(()=> { 
+                
+            });
         }
     }
 }
