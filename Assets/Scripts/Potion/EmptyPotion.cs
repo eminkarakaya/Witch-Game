@@ -11,7 +11,7 @@ public class EmptyPotion : MonoBehaviour
     [SerializeField] private InputData _inputData;
     RaycastHit hit;
     [SerializeField] private LayerMask mask;
-    bool isFinish;
+    public bool isFinish;
     //private void OnEnable()
     //{
     //    SelectManager.Instance.onSellPotion += CheckTable;
@@ -36,6 +36,7 @@ public class EmptyPotion : MonoBehaviour
     private void Ray()
     {
         hit = CastRayChar();
+        if (isFinish) return;
         if (hit.collider)
         {
             _collider = hit.collider;
@@ -121,13 +122,25 @@ public class EmptyPotion : MonoBehaviour
                 bottle.enabled = false;
                 Destroy(hit.collider.GetComponent<Outline>());
                 SelectManager.Instance.NullSelectedEmptyPotion();
-                CustomerManager.Instance.OrderComplate();
+                CustomerManager.Instance.OrderComplate(bottle.colorType);
             }
+            //else
+            //{
+            //    Back();
+            //}
         }
     }
     public void Back()
     {
-        transform.parent.DOMove(Camera.main.GetComponent<CameraController.CameraController>().potionPos.position, .2f);
+        if (isFinish) 
+            return;
+        hit = CastRayChar();
+        if(hit.collider && hit.collider.tag == "Table" && CustomerManager.Instance.CheckOrder(bottle.colorType))
+        {
+
+        }
+        else
+            transform.parent.DOMove(Camera.main.GetComponent<CameraController.CameraController>().potionPos.position, .2f);
     }
     
     private RaycastHit CastRayChar()

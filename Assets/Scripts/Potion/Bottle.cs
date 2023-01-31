@@ -8,11 +8,18 @@ public enum ColorType
     Red,
     Blue,
     Purple,
-    Green,
-    Pink
+   
+    Pink,
+    Cyan,
+    Brown,
+    White,
+    Black,
+    Yellow,
+    Green
 }
 public class Bottle : MonoBehaviour
 {
+    [SerializeField] private List<ColorType> halfColors = new List<ColorType>();
     [SerializeField] private Transform parent;
     [SerializeField] private Vector3 pos;
     [SerializeField] private List<ColorTypeClass> colorTypes;
@@ -20,6 +27,7 @@ public class Bottle : MonoBehaviour
     [SerializeField] private float capacity, full, fillAmount;
     [SerializeField] private float lerp;
     private Image _currentImage;
+    private ColorTypeClass currentColorTypeClass;
     [SerializeField] private Color? _currentColor  = null;
     public ColorType colorType;
     public Potion potion;
@@ -44,7 +52,7 @@ public class Bottle : MonoBehaviour
     {
         if (full >= capacity)
             return;
-        ColorTypeClass currentColorTypeClass = null;
+        //currentColorTypeClass = null;
         foreach (var item in colorTypes)
         {
             if (potion.colorType == item.colorType)
@@ -64,6 +72,18 @@ public class Bottle : MonoBehaviour
         _currentImage.fillAmount = (full / capacity);
         full += fillAmount;
         currentColorTypeClass.Amount += fillAmount;
+        if(currentColorTypeClass.half)
+        {
+            if(!halfColors.Contains(currentColorTypeClass.colorType))
+            {
+                halfColors.Add(currentColorTypeClass.colorType);
+                if(halfColors.Count == 2)
+                {
+                    colorType = MixColors(halfColors[0], halfColors[1]);
+                    Debug.Log("mixed + " + colorType);
+                }
+            }
+        }
         if (currentColorTypeClass.full)
         {
             colorType = currentColorTypeClass.colorType;
@@ -88,6 +108,121 @@ public class Bottle : MonoBehaviour
     public void TogglePotionImage(bool value)
     {
         parent.gameObject.SetActive(value);
+    }
+    public bool GetCurrentColorFull()
+    {
+        if (currentColorTypeClass == null)
+            return false;
+        return currentColorTypeClass.full;
+    }
+    public ColorType MixColors(ColorType colorType1, ColorType colorType2)
+    {
+        switch (colorType1)
+        {
+            
+            case ColorType.Red:
+                switch (colorType2)
+                {
+                    case ColorType.Null:
+                        return ColorType.Null;
+                    case ColorType.Red:
+                        return ColorType.Red;
+                    case ColorType.Blue:
+                        return ColorType.Purple;
+                    case ColorType.Purple:
+                        return ColorType.Pink;
+                    case ColorType.Green:
+                        return ColorType.Yellow;
+                    case ColorType.Pink:
+                        return ColorType.Pink;
+                    case ColorType.White:
+                        return ColorType.Pink;
+
+                    default:
+                        break;
+                }
+                break;
+            case ColorType.Blue:
+                switch (colorType2)
+                {
+                    case ColorType.Null:
+                        return ColorType.Null;
+                    case ColorType.Red:
+                        return ColorType.Purple;
+                    case ColorType.Blue:
+                        return ColorType.Blue;
+                    case ColorType.Purple:
+                        return ColorType.Null;
+                    case ColorType.Green:
+                        return ColorType.Cyan;
+                    case ColorType.Pink:
+                        return ColorType.Purple;
+                    default:
+                        break;
+                }
+                break;
+            case ColorType.Purple:
+                switch (colorType2)
+                {
+                    case ColorType.Null:
+                        return ColorType.Null;
+                    case ColorType.Red:
+                        return ColorType.Pink;
+                    case ColorType.Blue:
+                        return ColorType.Purple;
+                    case ColorType.Purple:
+                        return ColorType.Purple;
+                    case ColorType.Green:
+                        return ColorType.Brown;
+                    case ColorType.Pink:
+                        return ColorType.Purple;
+                    default:
+                        break;
+                }
+                break;
+            case ColorType.Green:
+                switch (colorType2)
+                {
+                    case ColorType.Null:
+                        return ColorType.Null;
+                    case ColorType.Red:
+                        return ColorType.Yellow;
+                    case ColorType.Blue:
+                        return ColorType.Cyan;
+                    case ColorType.Purple:
+                        return ColorType.Brown;
+                    case ColorType.Green:
+                        return ColorType.Green;
+                    case ColorType.Pink:
+                        return ColorType.Null;
+                    default:
+                        break;
+                }
+                break;
+            case ColorType.Pink:
+                switch (colorType2)
+                {
+                    case ColorType.Null:
+                        return ColorType.Null;
+                    case ColorType.Red:
+                        return ColorType.Pink;
+                    case ColorType.Blue:
+                        return ColorType.Purple;
+                    case ColorType.Purple:
+                        return ColorType.Purple;
+                    case ColorType.Green:
+                        return ColorType.Null;
+                    case ColorType.Pink:
+                        return ColorType.Pink;
+                    
+                    default:
+                        break;
+                }
+                break;
+            default:
+                break;
+        }
+        return ColorType.Null;
     }
 }
 [System.Serializable]

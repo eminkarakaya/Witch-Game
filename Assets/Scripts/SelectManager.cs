@@ -29,6 +29,10 @@ namespace Select
                 RaycastHit hit = CastRay();
                 if (hit.collider != null)
                 {
+                    if(hit.collider.TryGetComponent(out Book book))
+                    {
+                        book.OpenBook();
+                    }
                     if (hit.collider.TryGetComponent(out PotionBase potion))
                     {
                         if (_selectedBasePotion != null)
@@ -84,6 +88,14 @@ namespace Select
         public void NullSelectedEmptyPotion()
         {
             _selectedEmptyPotion = null;
+        }
+        public void SetEmptyPotion(GameObject gameObject)
+        {
+            _selectedEmptyPotion = gameObject;
+        }
+        public void SetSelectedObject(GameObject gameObject)
+        {
+            _selectedBasePotion = gameObject;
         }
         private RaycastHit CastRay()
         {

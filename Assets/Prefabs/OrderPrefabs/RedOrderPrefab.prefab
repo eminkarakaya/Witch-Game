@@ -124,6 +124,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 455119022148347798, guid: 9764adc8f6b0f4549bfa10c6389b8544,
         type: 3}
+      propertyPath: _gold
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 455119022148347798, guid: 9764adc8f6b0f4549bfa10c6389b8544,
+        type: 3}
+      propertyPath: count
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 455119022148347798, guid: 9764adc8f6b0f4549bfa10c6389b8544,
+        type: 3}
       propertyPath: colorType
       value: 1
       objectReference: {fileID: 0}

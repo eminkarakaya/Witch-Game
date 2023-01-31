@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class ExitState : CustomerStateBase
 {
+    Vector3 pos;
     public override void StartState(CustomerAnimations customerAnimations)
     {
+        pos = CustomerManager.Instance.exitTransform.position;
         customer.StartMove();
-        customer.SetDestination(CustomerManager.Instance.exitTransform.position);
+        customer.SetDestination(pos);
         CustomerManager.Instance.UpdateQueue(customer);
     }
 
@@ -18,6 +20,9 @@ public class ExitState : CustomerStateBase
 
     public override void UpdateState(CustomerAnimations customerAnimations)
     {
-        
+        if (Vector3.Distance(customer.transform.position, pos) < 2f)
+        {
+            Destroy(customer.gameObject);
+        }
     }
 }

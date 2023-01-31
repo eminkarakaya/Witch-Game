@@ -454,6 +454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f904b7952051e747afe6c86cd5e4bf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  halfColors: 
   parent: {fileID: 2209341343111938594}
   pos: {x: 1.1, y: -74.16785, z: 0}
   colorTypes:
@@ -467,7 +468,7 @@ MonoBehaviour:
     color: {r: 0, g: 0, b: 1, a: 1}
   - half: 0
     full: 0
-    colorType: 5
+    colorType: 4
     color: {r: 1, g: 0, b: 1, a: 1}
   - half: 0
     full: 0

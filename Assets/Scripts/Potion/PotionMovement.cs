@@ -9,7 +9,7 @@ public class PotionMovement : Singleton<PotionMovement>
     public AudioClip clip;       //
     [SerializeField] private AudioClip [] clinkSounds; // sounds
 
-    [SerializeField] private GameObject closeIcon, touchMoveIcon; // UI
+    [SerializeField] private GameObject closeIcon; // UI
 
     [SerializeField] private InputData _inputData;
     [SerializeField] private float _dur,_rotationSpeed;
@@ -35,7 +35,6 @@ public class PotionMovement : Singleton<PotionMovement>
     private void SelectMove(GameObject gameObject)
     {
         AudioSource.PlayClipAtPoint(clinkSounds[Random.Range(0, clinkSounds.Length)],Camera.main.transform.position);
-        touchMoveIcon.SetActive(true);
         closeIcon.SetActive(true);
         _oldRot = gameObject.transform.parent.rotation;
         _oldPos = gameObject.transform.parent.position;
@@ -53,11 +52,10 @@ public class PotionMovement : Singleton<PotionMovement>
         }
     }
     // rotation and clamping
-    private void RotatePotion(GameObject gameObject)
+    public void RotatePotion(GameObject gameObject)
     {
         if(gameObject != null && _inputData.DeltaPosition.y != 0)
         {
-            touchMoveIcon.SetActive(false);
             if(!(gameObject.transform.parent.rotation.eulerAngles.x < 330 && gameObject.transform.parent.rotation.eulerAngles.x > 180) && _inputData.DeltaPosition.y < 0)
             {
                 

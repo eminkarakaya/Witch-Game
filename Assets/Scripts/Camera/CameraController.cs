@@ -5,13 +5,13 @@ using DG.Tweening;
 using Select;
 namespace CameraController
 {
-    public class CameraController : MonoBehaviour
+    public class CameraController : Singleton<CameraController>
     {
         [SerializeField] private float _dur;
         [SerializeField] private Vector3[] _rotates;
         private Vector3 _oldCamPos;
         [SerializeField] private Transform _zoomTransform;
-        public Transform potionPos;
+        public Transform potionPos,bookPos;
         private void OnEnable()
         {
             SelectManager.Instance.onSelectPotion += ZoomIn;

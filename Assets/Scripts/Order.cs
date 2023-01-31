@@ -6,11 +6,13 @@ using TMPro;
 
 public class Order : MonoBehaviour
 {
+    [SerializeField] private int _gold;
     [SerializeField] private int count;
     public Sprite potionSprite;
     public ColorType colorType;
     public Image checkImage;
     public TextMeshProUGUI countText;
+    
     void Start()
     {
         GetComponent<Image>().sprite = potionSprite;
@@ -27,6 +29,8 @@ public class Order : MonoBehaviour
             if (list.Contains(this))
                 list.Remove(this);
             checkImage.enabled = true;
+            GoldAnimBubble.Instance.EarnGoldAnim2(_gold, transform);
+            AudioSource.PlayClipAtPoint (CustomerManager.Instance.moneyClip,Camera.main.transform.position);
         }
     }
 }
