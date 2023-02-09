@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
-public class Order : MonoBehaviour
+public class CustomerOrder : Order
 {
     [SerializeField] private int _gold;
     [SerializeField] private int count;
@@ -19,7 +18,7 @@ public class Order : MonoBehaviour
         countText.text = count.ToString();
     }
 
-    public void DecreaseCount(List<Order> list)
+    public void DecreaseCount(List<CustomerOrder> list)
     {
         count--;
         countText.text = count.ToString();

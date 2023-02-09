@@ -19,6 +19,7 @@ public class SellQuest : Quest
     }
     private void OnDestroy()
     {
+        if(QuestManager.Instance != null)
         QuestManager.Instance.RemoveQuest(this);
     }
     private void Update()

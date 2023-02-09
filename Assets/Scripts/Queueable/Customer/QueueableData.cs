@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName ="Data/CustomerData")]
-public class CustomerData : ScriptableObject
+[CreateAssetMenu(menuName ="Data/QueueableData")]
+public class QueueableData : ScriptableObject
 {
     public float speed;
 }

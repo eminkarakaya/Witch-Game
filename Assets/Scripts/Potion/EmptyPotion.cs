@@ -64,7 +64,7 @@ public class EmptyPotion : MonoBehaviour
 
         if (hit.collider && _collider.tag == "Table")
         {
-            if (CustomerManager.Instance.CheckOrder(bottle.colorType))
+            if (CustomerManager.Instance.CheckCustomerOrder(bottle.colorType))
             {
                 if (!outlineTable)
                 {
@@ -111,7 +111,7 @@ public class EmptyPotion : MonoBehaviour
                 SelectManager.Instance.NullSelectedEmptyPotion();
                 Destroy(transform.parent.gameObject);        
             }
-            else if (hit.collider && CustomerManager.Instance.CheckOrder(bottle.colorType))
+            else if (hit.collider && CustomerManager.Instance.CheckCustomerOrder(bottle.colorType))
             {
                 Table table = hit.collider.GetComponent<Table>();
                 table.orderObjects.Add(transform.parent.gameObject);
@@ -135,7 +135,7 @@ public class EmptyPotion : MonoBehaviour
         if (isFinish) 
             return;
         hit = CastRayChar();
-        if(hit.collider && hit.collider.tag == "Table" && CustomerManager.Instance.CheckOrder(bottle.colorType))
+        if(hit.collider && hit.collider.tag == "Table" && CustomerManager.Instance.CheckCustomerOrder(bottle.colorType))
         {
 
         }

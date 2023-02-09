@@ -8,7 +8,6 @@ public enum ColorType
     Red,
     Blue,
     Purple,
-   
     Pink,
     Cyan,
     Brown,
@@ -24,30 +23,40 @@ public class Bottle : MonoBehaviour
     [SerializeField] private Vector3 pos;
     [SerializeField] private List<ColorTypeClass> colorTypes;
     [SerializeField] private Material materialPrefab;
-    [SerializeField] private float capacity, full, fillAmount;
-    [SerializeField] private float lerp;
+    private float capacity, full, fillAmount = 1;
+    [SerializeField] private float lerp,halfFull;
     private Image _currentImage;
+    // private float halfFull;
     private ColorTypeClass currentColorTypeClass;
     [SerializeField] private Color? _currentColor  = null;
     public ColorType colorType;
     public Potion potion;
+
+
     private void OnEnable()
     {
         StageManager.Instance.onSwipeLeft += CheckPotionImageActive;
         StageManager.Instance.onSwipeRight += CheckPotionImageActive;
     }
+
     private void OnDisable()
     {
         StageManager.Instance.onSwipeLeft -= CheckPotionImageActive;
         StageManager.Instance.onSwipeRight -= CheckPotionImageActive;
-        
     }
+
     private void Start()
     {
         potion = GetComponent<Potion>();
         GetComponent<MeshRenderer>().material = Instantiate(materialPrefab);
-        GetComponent<MeshRenderer>().material.SetFloat("_Fill",-.5f);
+        SetCapacity();
+        GetComponent<MeshRenderer>().material.SetFloat("_Fill",-(halfFull));
+        full = -halfFull;
     }
+
+
+
+
     public void FillBottle(Potion potion)
     {
         if (full >= capacity)
@@ -88,12 +97,14 @@ public class Bottle : MonoBehaviour
         {
             colorType = currentColorTypeClass.colorType;
         }
-        GetComponent<MeshRenderer>().material.SetFloat("_Fill", (full / capacity) - .5f);
+        GetComponent<MeshRenderer>().material.SetFloat("_Fill", ((full / capacity) * halfFull*2) - (halfFull));
         this.potion.color = Color.Lerp(this.potion.color, potion.color, fillAmount / full);
         GetComponent<MeshRenderer>().material.SetColor("_Color_1",this.potion.color);
         GetComponent<MeshRenderer>().material.SetColor("_SideColor",this.potion.color);
     }
    
+
+
     private void CheckPotionImageActive()
     {
         if (StageManager.Instance.index == 0)
@@ -105,16 +116,78 @@ public class Bottle : MonoBehaviour
             parent.gameObject.SetActive(false);
         }
     }
+
+
+
     public void TogglePotionImage(bool value)
     {
         parent.gameObject.SetActive(value);
     }
+
+
+
+
     public bool GetCurrentColorFull()
     {
         if (currentColorTypeClass == null)
             return false;
         return currentColorTypeClass.full;
     }
+
+
+
+
+
+
+    // [ContextMenu("CalculateVolume")]
+
+    float SignedVolumeOfTriangle(Vector3 p1, Vector3 p2, Vector3 p3)
+    {
+        float v321 = p3.x * p2.y * p1.z;
+        float v231 = p2.x * p3.y * p1.z;
+        float v312 = p3.x * p1.y * p2.z;
+        float v132 = p1.x * p3.y * p2.z;
+        float v213 = p2.x * p1.y * p3.z;
+        float v123 = p1.x * p2.y * p3.z;
+        return (1.0f / 6.0f) * (-v321 + v231 + v312 - v132 - v213 + v123);
+    }
+
+    float VolumeOfMesh(Mesh mesh)
+    {
+        float volume = 0;
+        Vector3[] vertices = mesh.vertices;
+        int[] triangles = mesh.triangles;
+        for (int i = 0; i < mesh.triangles.Length; i += 3)
+        {
+            Vector3 p1 = vertices[triangles[i + 0]];
+            Vector3 p2 = vertices[triangles[i + 1]];
+            Vector3 p3 = vertices[triangles[i + 2]];
+            volume += SignedVolumeOfTriangle(p1, p2, p3);
+        }
+        float scale  = transform.localScale.y;
+        Transform currentTransform = this.transform;
+        while(true)
+        {
+            if(currentTransform.parent != null)
+            {
+                scale *= currentTransform.parent.localScale.y;
+                currentTransform = currentTransform.parent;
+            }
+            else
+                break;
+        }
+        return Mathf.Abs(volume * scale);
+    }
+    
+
+
+
+    private void SetCapacity()
+    {
+        
+        capacity = halfFull*2*100;
+        }
+    //
     public ColorType MixColors(ColorType colorType1, ColorType colorType2)
     {
         switch (colorType1)
@@ -225,6 +298,10 @@ public class Bottle : MonoBehaviour
         return ColorType.Null;
     }
 }
+
+
+
+
 [System.Serializable]
 public class ColorTypeClass
 {
@@ -250,5 +327,6 @@ public class ColorTypeClass
                 full = false;
         }
     }
+    
 }
 

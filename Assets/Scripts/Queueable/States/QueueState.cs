@@ -14,26 +14,26 @@ public class QueueState : CustomerStateBase
             _queuePlace = value;
         }
     }
-    public override void StartState(CustomerAnimations customerAnimations)
+    public override void StartState(QueueableAnimations customerAnimations)
     {
-        customer = GetComponentInParent<Customer>();
-        customer.StartMove();
+        queueable = GetComponentInParent<Queueable>();
+        queueable.StartMove();
         if (!isUpdate)
         {
             _queuePlace = CustomerManager.Instance.GetQueuePos();
         }
         isUpdate = false;
-        customer.SetDestination(_queuePlace);
+        queueable.SetDestination(_queuePlace);
     }
 
-    public override void UpdateState(CustomerAnimations customerAnimations)
+    public override void UpdateState(QueueableAnimations customerAnimations)
     {
-        if (Vector3.Distance(customer.transform.position, _queuePlace) < .7f)
+        if (Vector3.Distance(queueable.transform.position, _queuePlace) < .7f)
         {
-            customer.CurrentState = customer.queueWaitState;
+            queueable.CurrentState = queueable.queueWaitState;
         }
     }
-    public override void TriggerEnterState(CustomerAnimations customerAnimations, Collider other)
+    public override void TriggerEnterState(QueueableAnimations customerAnimations, Collider other)
     {
 
     }

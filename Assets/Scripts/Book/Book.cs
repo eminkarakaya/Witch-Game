@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-public class Book : MonoBehaviour
+public class Book : Singleton<Book>
 {
     [SerializeField] private GameObject closeIcon;
     [SerializeField] private List<GameObject> canvases;
@@ -12,6 +12,7 @@ public class Book : MonoBehaviour
     [SerializeField] private Vector3 childRot;
     [SerializeField] private float dur;
     bool isOpened;
+    [SerializeField] private List<GameObject> potionRecipes = new List<GameObject>();
     private void Start()
     {
         oldRot = transform.rotation;
@@ -37,3 +38,4 @@ public class Book : MonoBehaviour
         child.DOLocalRotate(childRot, dur);
     }
 }
+

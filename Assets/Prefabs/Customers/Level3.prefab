@@ -166,11 +166,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1468537286081474400, guid: 5c5b8d5daa570604da5f5726dcda05e9,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5281182748544191729, guid: 5c5b8d5daa570604da5f5726dcda05e9,
         type: 3}
       propertyPath: m_Name
       value: Level3
       objectReference: {fileID: 0}
+    - target: {fileID: 5281182748544191732, guid: 5c5b8d5daa570604da5f5726dcda05e9,
+        type: 3}
+      propertyPath: queueableData
+      value: 
+      objectReference: {fileID: 11400000, guid: ac84d82022678d74395097bdb017c641,
+        type: 2}
     - target: {fileID: 5281182748544191733, guid: 5c5b8d5daa570604da5f5726dcda05e9,
         type: 3}
       propertyPath: m_RootOrder

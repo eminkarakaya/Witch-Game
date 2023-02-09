@@ -30,6 +30,13 @@ public class QuestManager : Singleton<QuestManager>
     private void Start()
     {
         //StartCoroutine(quests[0].QuestAnimation());
+        if(quests.Count == 0)
+        {
+            SelectManager.Instance.enabled = true;
+            Destroy(QuestSelectManager.Instance);
+            Destroy(this);
+        }
+
         for (int i = 0; i < questIndex; i++)
         {
             RemoveQuest(quests[i]);
