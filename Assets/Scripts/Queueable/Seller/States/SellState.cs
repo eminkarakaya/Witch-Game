@@ -2,17 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SellState : MonoBehaviour
+public class SellState : SellerStateBase
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void StartState(QueueableAnimations customerAnimations)
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
+    public override void UpdateState(QueueableAnimations customerAnimations)
+    {
+
+    }
+    public override void TriggerEnterState(QueueableAnimations customerAnimations, Collider other)
+    {
+
+    }
+    // kurbaga bacagı
+    // tavşan ayagı
+    // orumcek gozu
+    // kaplumbaga kabugu
 }

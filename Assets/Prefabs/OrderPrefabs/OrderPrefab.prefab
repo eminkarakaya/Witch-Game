@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 455119022148347795}
   - component: {fileID: 455119022148347793}
   - component: {fileID: 455119022148347792}
-  - component: {fileID: 455119022148347798}
+  - component: {fileID: 4432058776400992608}
   m_Layer: 0
   m_Name: OrderPrefab
   m_TagString: Untagged
@@ -155,7 +155,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &455119022148347798
+--- !u!114 &4432058776400992608
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -164,10 +164,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 455119022148347794}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83bf12b74c1bcbb4896c8c56db85a3a6, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c642d36a90d07940951fa7958d2ab57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  count: 0
+  _gold: 200
+  count: 2
   potionSprite: {fileID: 0}
   colorType: 0
   checkImage: {fileID: 455119021477254442}

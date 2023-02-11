@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QueueableManager : MonoBehaviour
+public class QueueableManager : Singleton<QueueableManager>
 {
     public Transform exitTransform;
     public AudioClip moneyClip;
@@ -101,5 +101,10 @@ public class QueueableManager : MonoBehaviour
     public Vector3 GetQueueHead()
     {
         return createdQueueTransform[0].position;
+    }
+    public void SetCustomerIndex()
+    {
+        currentCustomerCount--;
+        savedTotalCustomerCount++;
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SellerManager : QueueableManager
 {
-     public static SellerManager Instance;
+    public static SellerManager Instance;
     //[SerializeField] private Transform _parentCanvasOrder;
         
     

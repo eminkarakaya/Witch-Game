@@ -7,10 +7,10 @@ public class ExitState : CustomerStateBase
     Vector3 pos;
     public override void StartState(QueueableAnimations customerAnimations)
     {
-        pos = CustomerManager.Instance.exitTransform.position;
+        pos = QueueableManager.Instance.exitTransform.position;
         queueable.StartMove();
         queueable.SetDestination(pos);
-        CustomerManager.Instance.UpdateQueue(queueable);
+        QueueableManager.Instance.UpdateQueue(queueable);
     }
 
     public override void TriggerEnterState(QueueableAnimations customerAnimations, Collider other)

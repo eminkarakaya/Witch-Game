@@ -15,7 +15,7 @@ public class OrderState : CustomerStateBase
         queueable.transform.LookAt(CustomerManager.Instance.transform);
         queueable.Stop();
         CustomerManager.Instance.CurrentOrder = order;
-        CustomerManager.Instance.CurrentQueueable = customer;
+        QueueableManager.Instance.CurrentQueueable = customer;
     }
     private void InitOrders()
     {

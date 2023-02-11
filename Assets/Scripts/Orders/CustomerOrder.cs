@@ -29,7 +29,7 @@ public class CustomerOrder : Order
                 list.Remove(this);
             checkImage.enabled = true;
             GoldAnimBubble.Instance.EarnGoldAnim2(_gold, transform);
-            AudioSource.PlayClipAtPoint (CustomerManager.Instance.moneyClip,Camera.main.transform.position);
+            AudioSource.PlayClipAtPoint (QueueableManager.Instance.moneyClip,Camera.main.transform.position);
         }
     }
 }

@@ -65,7 +65,7 @@ public class Queueable : MonoBehaviour
     }
     public bool CheckQueue()
     {
-       if(CustomerManager.Instance.GetQueueCustomer(0) == this)
+       if(QueueableManager.Instance.GetQueueCustomer(0) == this)
        {
             return false;
        }

@@ -20,7 +20,7 @@ public class QueueState : CustomerStateBase
         queueable.StartMove();
         if (!isUpdate)
         {
-            _queuePlace = CustomerManager.Instance.GetQueuePos();
+            _queuePlace = QueueableManager.Instance.GetQueuePos();
         }
         isUpdate = false;
         queueable.SetDestination(_queuePlace);

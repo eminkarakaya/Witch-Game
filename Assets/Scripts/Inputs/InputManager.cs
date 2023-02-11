@@ -29,10 +29,12 @@ namespace Inputs
                     }
                     startPos = touch.position;
                     _data.IsClick = true;
+                    
                     _data.IsMove = false;
                 }
                 else if(touch.phase == TouchPhase.Moved)
                 {
+                    _data.IsClick = false;
                     _data.IsMove = true;
                     CloseSwipe();
                     StartCoroutine(ResetStartPos(touch.position));
@@ -69,6 +71,7 @@ namespace Inputs
                     {
                         return;
                     }
+                    _data.IsClick = false;
                     _data.IsEnd = true;   
                     _data.IsMove = false;
                     stopTouch = false;

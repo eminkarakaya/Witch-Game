@@ -18,6 +18,14 @@ namespace Select
         public OnSellPotion onSellPotion;
         //public LayerMask mask;
         [SerializeField] bool isSelected = false;
+        void OnEnable()
+        {
+            
+        }
+        void OnDisable()
+        {
+            
+        }
         private void Update()
         {
             SelectBasePotion();
@@ -43,6 +51,15 @@ namespace Select
                     else if (hit.collider.TryGetComponent(out EmptyPotion emptyPotion))
                     {
                         isSelected = true;
+                    }
+                    else if(hit.collider.TryGetComponent(out Shaker shaker))
+                    {
+                        ShakerMovement.Instance.SetCurrentShaker(shaker);
+                        ShakerMovement.Instance.MoveShaker(shaker.transform.parent.gameObject);
+                    }
+                    else if(hit.collider.TryGetComponent(out Jar jar))
+                    {
+                        jar.Movement();
                     }
                     else if (hit.collider.TryGetComponent(out Chest chest))
                     {
@@ -79,7 +96,6 @@ namespace Select
         {
             onCancelPotion?.Invoke(_selectedBasePotion);
             _selectedBasePotion = null;
-
         }
         public GameObject GetSelectedObject()
         {

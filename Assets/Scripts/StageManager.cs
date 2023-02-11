@@ -6,7 +6,7 @@ using Select;
 public class StageManager : Singleton<StageManager>
 {
     [SerializeField] private GameObject leftArrow, rightArrow;
-    int stageCount = 2;
+    int stageCount = 3;
     public int index;
     [SerializeField] private InputData data;
     public delegate void OnSwipeLeft();
@@ -72,13 +72,15 @@ public class StageManager : Singleton<StageManager>
         
         else if(index == 1)
         {
-            leftArrow.SetActive(false);
-            rightArrow.SetActive(true);
-        }
-        else
-        {
             leftArrow.SetActive(true);
             rightArrow.SetActive(true);
+        }
+        else if(index == 2)
+        {
+            leftArrow.SetActive(false);
+            rightArrow.SetActive(true);
+            // leftArrow.SetActive(true);
+            // rightArrow.SetActive(true);
 
         }
         
