@@ -14,7 +14,7 @@ public class CustomerOrder : Order
     
     void Start()
     {
-        GetComponent<Image>().sprite = potionSprite;
+        // GetComponent<Image>().sprite = potionSprite;
         countText.text = count.ToString();
     }
 
@@ -31,5 +31,9 @@ public class CustomerOrder : Order
             GoldAnimBubble.Instance.EarnGoldAnim2(_gold, transform);
             AudioSource.PlayClipAtPoint (QueueableManager.Instance.moneyClip,Camera.main.transform.position);
         }
+    }
+    public int GetGold()
+    {
+        return _gold;
     }
 }

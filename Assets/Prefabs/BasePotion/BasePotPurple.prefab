@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 4991713354659180497, guid: 2e849eac170e5914f917c4b983f8464b,
         type: 3}
       propertyPath: m_Name
-      value: BasePot (2)
+      value: BasePotPurple
       objectReference: {fileID: 0}
     - target: {fileID: 5298283787655053750, guid: 2e849eac170e5914f917c4b983f8464b,
         type: 3}
@@ -92,5 +92,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9352a71106020a34a8209fb550381d5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorType: 1
-  color: {r: 0, g: 0, b: 0, a: 0}
+  colorType: 3
+  fillImage: {fileID: 0}
+  color: {r: 1, g: 0, b: 0.90825653, a: 0}

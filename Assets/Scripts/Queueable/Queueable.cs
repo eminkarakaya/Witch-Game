@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class Queueable : MonoBehaviour
 {
+    [SerializeField] private GameObject _rejectButton;
     [SerializeField] private QueueableData queueableData;
     private QueueableAnimations queueableAnimations;
     [Header("States")]
@@ -14,8 +15,8 @@ public class Queueable : MonoBehaviour
     [SerializeField] public QueueState queueState;
     [SerializeField] public QueueWaitState queueWaitState;
     [Space(10)]
-    [SerializeField] private CustomerStateBase _currentState;
-    public CustomerStateBase CurrentState
+    [SerializeField] private QueueableStateBase _currentState;
+    public QueueableStateBase CurrentState
     {
         get => _currentState;
         set

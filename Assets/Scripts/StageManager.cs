@@ -6,6 +6,7 @@ using Select;
 public class StageManager : Singleton<StageManager>
 {
     [SerializeField] private GameObject leftArrow, rightArrow;
+    public const int CAULDRONINDEX = 2,SELLINDEX = 1,POTIONINDEX = 0;
     int stageCount = 3;
     public int index;
     [SerializeField] private InputData data;
@@ -13,6 +14,7 @@ public class StageManager : Singleton<StageManager>
     public delegate void OnSwipeRight();
     public OnSwipeLeft onSwipeLeft;
     public OnSwipeLeft onSwipeRight;
+    
 
     private void Start()
     {
@@ -40,9 +42,35 @@ public class StageManager : Singleton<StageManager>
     //        }
     //    }
     //}
+    private bool CheckCanRotate()
+    {
+        if (SelectManager.Instance.GetSelectedObject() != null) 
+            return false;
+        if(ShakerMovement.Instance.IsCurrentShaker())
+            return false;
+        return true;
+    }
+    public void ForceLeft()
+    {
+        if (index < stageCount - 1)
+        {
+            index++;
+            
+            onSwipeRight?.Invoke();
+        }
+    }
+    public void ForceRight()
+    {
+        if (index > 0)
+        {
+            index--;
+            
+            onSwipeLeft?.Invoke();
+        }
+    }
     public void Left()
     {
-        if (SelectManager.Instance.GetSelectedObject() != null)
+        if (!CheckCanRotate()) 
             return;
         if (index < stageCount - 1)
         {
@@ -53,7 +81,7 @@ public class StageManager : Singleton<StageManager>
     }
     public void Right()
     {
-        if (SelectManager.Instance.GetSelectedObject() != null)
+        if (!CheckCanRotate()) 
             return;
         if (index > 0)
         {
@@ -84,5 +112,17 @@ public class StageManager : Singleton<StageManager>
 
         }
         
+    }
+    public void ToggleArrows(bool value,bool Check = false)
+    {
+        if(value == false)
+        {
+            rightArrow.SetActive(value);
+            leftArrow.SetActive(value);    
+        }
+        else
+        {   
+            CheckArrow();
+        }
     }
 }

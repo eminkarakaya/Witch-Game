@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class ExitState : CustomerStateBase
 {
+    [SerializeField] private GameObject _speechBubble;
     Vector3 pos;
     public override void StartState(QueueableAnimations customerAnimations)
     {
+        _speechBubble.SetActive(false);
         pos = QueueableManager.Instance.exitTransform.position;
         queueable.StartMove();
         queueable.SetDestination(pos);
+        QueueableManager.Instance.DecreaseQueueableCount();
         QueueableManager.Instance.UpdateQueue(queueable);
     }
 

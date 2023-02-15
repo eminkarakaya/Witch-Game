@@ -9,7 +9,8 @@ public class TextParse : TextMeshProUGUI
     private OnEnoughMoney onEnoughMoney;
     public delegate void OnNotEnoughMoney();
     private OnNotEnoughMoney onNotEnoughMoney;
-    Color _color = new Color(49, 207, 26, 255);
+    // Color _color = new Color(49, 207, 26, 255);
+    Color _color = Color.black;
     public override Color color { get => base.color; set => base.color = value; }
     protected override void OnEnable()
     {
@@ -30,7 +31,6 @@ public class TextParse : TextMeshProUGUI
         else
         {
             onEnoughMoney?.Invoke();
-
         }
     }
     public void EnoughMoney()

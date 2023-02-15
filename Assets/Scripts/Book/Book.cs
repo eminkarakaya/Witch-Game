@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-public class Book : Singleton<Book>
+public class Book : MonoBehaviour
 {
+    public List<PotionRecipe> potionRecipeBookObj;
     [SerializeField] private GameObject closeIcon;
     [SerializeField] private List<GameObject> canvases;
     [SerializeField] private Transform child;
@@ -23,8 +24,8 @@ public class Book : Singleton<Book>
         if (isOpened) return;
         
         isOpened = true;
-        transform.DOMove(CameraController.CameraController.Instance.bookPos.position, dur);
-        transform.DORotate(CameraController.CameraController.Instance.bookPos.rotation.eulerAngles, dur);
+        transform.DOMove(cam.CamController.CameraController.Instance.bookPos.position, dur);
+        transform.DORotate(cam.CamController.CameraController.Instance.bookPos.rotation.eulerAngles, dur);
         child.DOLocalRotate(Vector3.zero, dur);
         closeIcon.SetActive(true);
     }
@@ -36,6 +37,31 @@ public class Book : Singleton<Book>
         transform.DOMove(oldPos, dur);
         transform.DORotate(oldRot.eulerAngles, dur);
         child.DOLocalRotate(childRot, dur);
+    }
+    public GameObject GetRecipe(ColorType colorType,out GameObject questionMark)
+    {
+        foreach (var item in potionRecipeBookObj)
+        {
+            if(item.colorType == colorType)
+            {
+                questionMark = item.questionMark;
+                return item.recipe;
+            }
+        }
+        questionMark = null;
+        return null;
+    }
+    
+}
+[System.Serializable]
+public class PotionRecipe
+{
+    public ColorType colorType;
+    public GameObject questionMark,recipe;
+    public void Unlock()
+    {
+        questionMark.SetActive(false);
+        recipe.SetActive(true);
     }
 }
 

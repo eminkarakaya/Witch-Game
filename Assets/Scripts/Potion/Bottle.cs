@@ -14,7 +14,8 @@ public enum ColorType
     White,
     Black,
     Yellow,
-    Green
+    Green,
+    Water
 }
 public class Bottle : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class Bottle : MonoBehaviour
     [SerializeField] private List<ColorTypeClass> colorTypes;
     [SerializeField] private Material materialPrefab;
     private float capacity, full, fillAmount = 1;
-    [SerializeField] private float lerp,halfFull;
+    [SerializeField] private float halfFull;
     private Image _currentImage;
     // private float halfFull;
     private ColorTypeClass currentColorTypeClass;
@@ -55,7 +56,15 @@ public class Bottle : MonoBehaviour
     }
 
 
-
+    public void ResetBottle()
+    {
+        full = -halfFull;
+        GetComponent<MeshRenderer>().material.SetFloat("_Fill",-(halfFull));
+        foreach (var item in colorTypes)
+        {
+            item.ResetItem();
+        }
+    }
 
     public void FillBottle(Potion potion)
     {
@@ -107,11 +116,11 @@ public class Bottle : MonoBehaviour
 
     private void CheckPotionImageActive()
     {
-        if (StageManager.Instance.index == 0)
+        if (StageManager.Instance.index == StageManager.POTIONINDEX)
         {
             parent.gameObject.SetActive(true);
         }
-        else if (StageManager.Instance.index == 1)
+        else if (StageManager.Instance.index == StageManager.SELLINDEX)
         {
             parent.gameObject.SetActive(false);
         }
@@ -326,6 +335,12 @@ public class ColorTypeClass
             else
                 full = false;
         }
+    }
+    public void ResetItem()
+    {
+        amount = 0;
+        full = false;
+        half = false;
     }
     
 }

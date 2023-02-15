@@ -21,8 +21,14 @@ public class MoveState : CustomerStateBase
     {
         if (Vector3.Distance(queueable.transform.position, pos) < .7f)
         {
-            Debug.Log(customer.orderState);
-            queueable.CurrentState = customer.orderState;
+            if(queueable.TryGetComponent(out Customer customer))
+            {
+                queueable.CurrentState = customer.orderState;
+            }
+            else if(queueable.TryGetComponent(out Seller seller))
+            {
+                queueable.CurrentState = seller.sellState;
+            }
         }
     }
     public override void TriggerEnterState(QueueableAnimations customerAnimations, Collider other)

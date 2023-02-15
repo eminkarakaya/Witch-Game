@@ -140,7 +140,7 @@ public class EmptyPotion : MonoBehaviour
 
         }
         else
-            transform.parent.DOMove(Camera.main.GetComponent<CameraController.CameraController>().potionPos.position, .2f);
+            transform.parent.DOMove(Camera.main.GetComponent<cam.CamController.CameraController>().potionPos.position, .2f);
     }
     
     private RaycastHit CastRayChar()

@@ -6,34 +6,59 @@ public class QueueableManager : Singleton<QueueableManager>
 {
     public Transform exitTransform;
     public AudioClip moneyClip;
-    
+    [SerializeField] private GameObject acceptBtn,rejectBtn;
     [SerializeField] private float frequency;
     [SerializeField] private Transform _spawnTransform;
     [SerializeField] private GameObject _customerPrefab;
-    [SerializeField] protected List<Queueable> queue = new List<Queueable>();
+    [SerializeField] private List<Queueable> queue = new List<Queueable>();
     public List<Transform> createdQueueTransform;
     
-    private Queueable _currentQueueable;
+    [SerializeField] private Queueable _currentQueueable;
     public Queueable CurrentQueueable { get => _currentQueueable; set
         {
             _currentQueueable = value;
-            if(_currentQueueable.TryGetComponent(out Customer customer))
-            {
-                
-            }
-
         }
     }
     
-    protected int currentCustomerCount = 0,totalCustomerCount = 0,savedTotalCustomerCount = 0;
+    [SerializeField] private int currentCustomerCount = 0,totalCustomerCount = 0,savedTotalCustomerCount = 0;
     [SerializeField] private List<Queueable> queueableList;
     const string TOTALCUSTOMER = "TotalCustomer";
+    void OnEnable()
+    {
+        StageManager.Instance.onSwipeRight += CheckButton;
+        StageManager.Instance.onSwipeLeft += CheckButton;
+    }
+    void OnDisable()
+    {
+        StageManager.Instance.onSwipeRight -= CheckButton;
+        StageManager.Instance.onSwipeLeft -= CheckButton;
+        
+    }
     private void Start()
     {
         StartCoroutine(CreateCustomer());
     }
 
+    public void CloseButtons()
+    {
+        acceptBtn.SetActive(false);
+        rejectBtn.SetActive(false);
+    }
 
+
+    public void OpenButtonForSeller()
+    {
+        if(StageManager.Instance.index == StageManager.SELLINDEX)
+        {
+            acceptBtn.SetActive(true);
+            rejectBtn.SetActive(true);
+        }
+    }
+    public void OpenButtonForCustomer()
+    {
+        if(StageManager.Instance.index == StageManager.SELLINDEX)
+            rejectBtn.SetActive(true); 
+    }
     private IEnumerator CreateCustomer()
     {
         while(true)
@@ -42,8 +67,6 @@ public class QueueableManager : Singleton<QueueableManager>
             {
                 if (queueableList.Count <= totalCustomerCount)
                     totalCustomerCount = 0;
-                Debug.Log(totalCustomerCount);
-                Debug.Log(queueableList.Count + " count");
                 var obj = Instantiate(queueableList[totalCustomerCount], _spawnTransform.position, Quaternion.identity);
                 currentCustomerCount++;
                 totalCustomerCount++;
@@ -57,6 +80,10 @@ public class QueueableManager : Singleton<QueueableManager>
     //{
 
     //}
+    public void DecreaseQueueableCount()
+    {
+        currentCustomerCount --;
+    }
     private int GetQueueCapacity()
     {
         return createdQueueTransform.Count;
@@ -106,5 +133,36 @@ public class QueueableManager : Singleton<QueueableManager>
     {
         currentCustomerCount--;
         savedTotalCustomerCount++;
+    }
+    public void RejectOffer()
+    {
+        if(CurrentQueueable != null)
+        {
+            QueueableManager.Instance.CloseButtons();
+            CurrentQueueable.CurrentState = CurrentQueueable.exitState;
+            CurrentQueueable = null;
+            foreach (var obj in FindObjectOfType<Table>().orderObjects)
+            {
+                Destroy(obj);
+            }
+        }
+    }
+    public void CheckButton()
+    {
+        if(CurrentQueueable == null) return;
+        if(StageManager.Instance.index == StageManager.SELLINDEX)
+        {
+            
+            if(CurrentQueueable.TryGetComponent(out Customer customer))
+            {
+                OpenButtonForCustomer();
+            }
+            else
+            {
+                OpenButtonForSeller();
+            }
+        }
+        else
+            CloseButtons();
     }
 }

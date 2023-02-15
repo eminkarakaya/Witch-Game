@@ -38,7 +38,6 @@ public class CustomerManager : MonoBehaviour
         {
             if (item.colorType == colorType)
             {
-                Debug.Log(item.colorType + " " + colorType + " " + item, item);
                 return true;
             }
         }
@@ -52,6 +51,7 @@ public class CustomerManager : MonoBehaviour
         {
             if (item.colorType == colorType)
             {
+                
                 item.DecreaseCount(CurrentOrder);
                 break;
             }
@@ -62,6 +62,8 @@ public class CustomerManager : MonoBehaviour
             QueueableManager.Instance.CurrentQueueable.CurrentState = QueueableManager.Instance.CurrentQueueable.exitState;
             foreach (var obj in FindObjectOfType<Table>().orderObjects)
             {
+                QueueableManager.Instance.CloseButtons();
+                QueueableManager.Instance.CurrentQueueable = null;
                 Destroy(obj);
             }
             FindObjectOfType<Table>().ResetIndex();

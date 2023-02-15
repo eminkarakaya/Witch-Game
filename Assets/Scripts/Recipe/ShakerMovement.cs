@@ -6,20 +6,28 @@ using Inputs;
 
 public class ShakerMovement : Singleton<ShakerMovement>
 {
+    [SerializeField] private AudioClip _clip;
     [SerializeField] private InputData _inputData;
     [SerializeField] private float minY, currentY;
     [SerializeField] private GameObject _closeIcon,_touchIcon;
     [SerializeField] private float offset;
     [SerializeField] private Shaker _currentShaker;
-    [SerializeField] bool isShake;
+    
+    [SerializeField] bool isShake,isMove;
     public Shaker CurrentShaker { get; set; }    
 
     void Update()
     {
         Shake();
     }
+    public bool IsCurrentShaker()
+    {
+        return _currentShaker != null;
+    }
     private void Shake()
     {
+        if(isMove) return;
+        if(!Cauldron.Instance.CheckShake())  return;
         if(_currentShaker == null) return;
         if(_inputData.IsMove)
             currentY += Mathf.Abs (_inputData.DeltaPosition.y);
@@ -37,28 +45,32 @@ public class ShakerMovement : Singleton<ShakerMovement>
                 {
                     _currentShaker.transform.parent.DOMoveY(_currentShaker.transform.position.y + -offset,.2f).OnComplete(()=>
                     {
+                        _currentShaker.CreatePotionItemType();
                         isShake = false;
+                        AudioSource.PlayClipAtPoint(_clip,Camera.main.transform.position);
+                        _currentShaker.CreateDustPrefab();
                         Cauldron.Instance.AddRecipe(_currentShaker.itemType);    
                     });
                 });
             }
         }
     }
-    private void CreateSalt()
-    {
-        
-    }
+
     public void MoveShaker(GameObject gameObject)
     {
+        if(!Cauldron.Instance.CheckShake())  return;
         if(_currentShaker == null) return;
+        isMove = true;
         _currentShaker.parentSalt.transform.SetParent(_currentShaker.transform);
-        gameObject.transform.DOMove(Camera.main.GetComponent<CameraController.CameraController>().potionPos.position + new Vector3(0,2,0), .3f).OnComplete(()=>
+        gameObject.transform.DOMove(Camera.main.GetComponent<cam.CamController.CameraController>().potionPos.position + new Vector3(0,2,0), .3f).OnComplete(()=>
         {
+            isMove = false;
             _currentShaker.parentSalt.transform.SetParent(null);
         });
         gameObject.transform.DORotate(new Vector3(0,0,-180),.3f);
         _closeIcon.SetActive(true);
         _touchIcon.SetActive(true);
+        
     }
     public void PutItBack()
     {

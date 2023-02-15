@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using CameraController;
+using cam.CamController;
 public class Chest : MonoBehaviour
 {
     [SerializeField] private Vector3 rot;
@@ -16,6 +16,6 @@ public class Chest : MonoBehaviour
     }
     public void MovePotion(GameObject gameObject)
     {
-        gameObject.transform.DOMove(Camera.main.GetComponent<CameraController.CameraController>().potionPos.position, .3f);
+        gameObject.transform.DOMove(Camera.main.GetComponent<cam.CamController.CameraController>().potionPos.position, .3f);
     }
 }

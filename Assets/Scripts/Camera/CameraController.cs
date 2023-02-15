@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using Select;
-namespace CameraController
+namespace cam.CamController
 {
     public class CameraController : Singleton<CameraController>
     {
@@ -41,5 +41,11 @@ namespace CameraController
                 
             });
         }
+        public void PosAndRotate(Vector3 pos,Vector3 rot,float dur,System.Action onComplate = null)
+        {
+            transform.DOMove(pos, dur);
+            transform.DORotate(rot, dur).OnComplete(()=>onComplate?.Invoke());
+        }
+
     }
 }

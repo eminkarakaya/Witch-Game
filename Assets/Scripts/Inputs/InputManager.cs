@@ -17,16 +17,15 @@ namespace Inputs
         {
             if (Input.touchCount > 0)
             {
-
                 Touch touch = Input.GetTouch(0);
                 _data.TouchPosition = touch.position;
                 _data.IsEnd = false;
                 if (touch.phase == TouchPhase.Began)
                 {
-                    if (EventSystem.current.IsPointerOverGameObject())
-                    {
-                        return;
-                    }
+                    // if (EventSystem.current.IsPointerOverGameObject())
+                    // {
+                    //     return;
+                    // }
                     startPos = touch.position;
                     _data.IsClick = true;
                     
@@ -67,10 +66,10 @@ namespace Inputs
                 }
                 else if(touch.phase == TouchPhase.Ended)
                 {
-                    if (EventSystem.current.IsPointerOverGameObject())
-                    {
-                        return;
-                    }
+                    // if (EventSystem.current.IsPointerOverGameObject())
+                    // {
+                    //     return;
+                    // }
                     _data.IsClick = false;
                     _data.IsEnd = true;   
                     _data.IsMove = false;

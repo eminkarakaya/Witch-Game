@@ -6,7 +6,7 @@ using System;
 
 public class GameManager : Singleton<GameManager>
 {
-    private int _gold;
+    [SerializeField] private int _gold;
     [SerializeField] private TextMeshProUGUI _goldText;
     private TextParse[] textParses;
     private void Awake()

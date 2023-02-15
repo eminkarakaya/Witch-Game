@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Inputs;
+using UnityEngine.EventSystems;
 
 namespace Select
 {
@@ -16,7 +17,9 @@ namespace Select
         public OnSelectPotion onSelectPotion;
         public OnCancelPotion onCancelPotion;
         public OnSellPotion onSellPotion;
+        public bool isAnimation;
         //public LayerMask mask;
+       
         [SerializeField] bool isSelected = false;
         void OnEnable()
         {
@@ -28,12 +31,18 @@ namespace Select
         }
         private void Update()
         {
+            if(isAnimation) return;
             SelectBasePotion();
         }
         private void SelectBasePotion()
         {
             if (_inputData.IsClick)
             {
+                // if(EventSystem.current.IsPointerOverGameObject())
+                // {
+                    
+                //     return;
+                // }
                 RaycastHit hit = CastRay();
                 if (hit.collider != null)
                 {
@@ -51,6 +60,10 @@ namespace Select
                     else if (hit.collider.TryGetComponent(out EmptyPotion emptyPotion))
                     {
                         isSelected = true;
+                    }
+                    else if(hit.collider.TryGetComponent(out Cauldron cauldron))
+                    {
+                        cauldron.MoveCamera();
                     }
                     else if(hit.collider.TryGetComponent(out Shaker shaker))
                     {
@@ -84,7 +97,7 @@ namespace Select
         }
         public void Drag(RaycastHit hit)
         {
-            if (StageManager.Instance.index != 1)
+            if (StageManager.Instance.index != StageManager.SELLINDEX)
                 return;
             if (_selectedEmptyPotion == null)
                 return;
@@ -132,5 +145,7 @@ namespace Select
 
             return hit;
         }
+       
     }
+    
 }

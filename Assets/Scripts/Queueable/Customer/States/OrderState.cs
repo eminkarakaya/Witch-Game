@@ -16,6 +16,7 @@ public class OrderState : CustomerStateBase
         queueable.Stop();
         CustomerManager.Instance.CurrentOrder = order;
         QueueableManager.Instance.CurrentQueueable = customer;
+        QueueableManager.Instance.OpenButtonForCustomer();
     }
     private void InitOrders()
     {
@@ -23,10 +24,7 @@ public class OrderState : CustomerStateBase
     }
     public override void UpdateState(QueueableAnimations customerAnimations)
     {
-        if(Input.GetKeyDown(KeyCode.Q))
-        {
-            queueable.ChangeCurrentState(queueable.exitState);
-        }
+       
     }
     public override void TriggerEnterState(QueueableAnimations customerAnimations, Collider other)
     {

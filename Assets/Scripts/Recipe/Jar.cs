@@ -3,8 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using Inputs;
-public class Jar : MonoBehaviour
+using TMPro;
+public class Jar : MonoBehaviour , PotionItem
 {
+    #region potionItem
+    
+    [SerializeField] private GameObject _potionImageType;
+    public int count { get; set; }
+    public ItemType potionItemType { get; set; }
+    public TextMeshProUGUI countText { get; set; }
+    
+    public GameObject potionTypeImage { get => _potionImageType; set{_potionImageType = value;}}
+    #endregion
+    
     [SerializeField] private InputData _inputData;
     [SerializeField] private float dur;
     [SerializeField] private Ease ease;
@@ -12,6 +23,18 @@ public class Jar : MonoBehaviour
     [SerializeField] private GameObject itemPrefab;
     [SerializeField] private AnimationCurve animationCurve;
     [SerializeField] bool isClick = false;
+    void OnEnable()
+    {
+        Cauldron.Instance.clearCauldron += ResetCount;
+    }
+    void OnDisable()
+    {
+        Cauldron.Instance.clearCauldron -= ResetCount;
+    }
+    void Start()
+    {
+        potionItemType = itemType;
+    }
     void Update()
     {
         if(_inputData.IsEnd)
@@ -20,9 +43,12 @@ public class Jar : MonoBehaviour
     public void Movement()
     {
         if(isClick) return;
+        if(!Cauldron.Instance.CheckShake())  return;
         isClick = true;
         var item = Instantiate(itemPrefab,transform.position,Quaternion.identity);
-        item.transform.DOMove(Camera.main.GetComponent<CameraController.CameraController>().potionPos.position + new Vector3(0,2,0), .3f).
+        CreatePotionItemType();
+        Cauldron.Instance.AddRecipeItem(item);
+        item.transform.DOMove(Camera.main.GetComponent<cam.CamController.CameraController>().potionPos.position + new Vector3(0,2,0), .3f).
             OnComplete(()=>
             {
                 if(itemType == ItemType.Leaf)
@@ -60,5 +86,28 @@ public class Jar : MonoBehaviour
             t += Time.deltaTime;
             yield return null;
         }
+    }
+    public void CreatePotionItemType()
+    {
+        foreach (var item in ItemTypeHolder.Instance.itemTypes)
+        {
+            if(item == potionItemType)
+            {
+                count ++;
+                countText.text = count.ToString();
+                return;
+            }
+        }
+        var obj = Instantiate(potionTypeImage,ItemTypeHolder.Instance.parent);
+        countText = obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        ItemTypeHolder.Instance.counts.Add(count);
+        ItemTypeHolder.Instance.itemTypes.Add(potionItemType);
+        count ++;
+        countText.text = count.ToString();
+        
+    }
+    public void ResetCount()
+    {
+        count = 0;
     }
 }
