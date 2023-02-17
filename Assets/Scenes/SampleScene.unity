@@ -99,7 +99,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: e9df924ba0dace04191457c321156847,
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 08f8a041dd9b04849a675b89632d2875,
     type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -4721,7 +4721,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &397093771
 RectTransform:
   m_ObjectHideFlags: 0
