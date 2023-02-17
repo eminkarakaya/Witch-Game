@@ -6,7 +6,7 @@ using System.Linq;
 public class QuestManager : Singleton<QuestManager>
 {
     [SerializeField] private List<Quest> quests = new List<Quest>();
-    int questIndex;
+    [SerializeField] int questIndex;
     private const string QUESTINDEX = "QuestIndex", QUESTFINISH = "QuestFinish";
     int questFinish;
     public GameObject bottle;
@@ -25,7 +25,7 @@ public class QuestManager : Singleton<QuestManager>
     }
     private void OnDisable()
     {
-        PlayerPrefs.SetInt(QUESTINDEX,questIndex);
+        // PlayerPrefs.SetInt(QUESTINDEX,questIndex);
     }
     private void Start()
     {
@@ -33,15 +33,22 @@ public class QuestManager : Singleton<QuestManager>
         if(quests.Count == 0)
         {
             SelectManager.Instance.enabled = true;
+            Quest [] quests = FindObjectsOfType<Quest>();
+            foreach (var item in quests)
+            {
+                Destroy(item);
+            }
             Destroy(QuestSelectManager.Instance);
             Destroy(this);
         }
+        else
+            QuestPointer.Instance.SetTargetQuestPoint(quests[0].transform);
 
         for (int i = 0; i < questIndex; i++)
         {
             RemoveQuest(quests[i]);
         }
-        QuestPointer.Instance.SetTargetQuestPoint(quests[0].transform);
+        
     }
     public Quest GetCurrentQuest()
     {
@@ -69,8 +76,9 @@ public class QuestManager : Singleton<QuestManager>
             QuestSelectManager.Instance.enabled = false; ;
             //Destroy(this);
             QuestPointer.Instance.ToggleQuestPointer(false);
-            PlayerPrefs.SetInt(QUESTFINISH, 1);
+            // PlayerPrefs.SetInt(QUESTFINISH, 1);
         }
+        Debug.Log(questIndex + " " + quest , quest.gameObject);
         questIndex++;
     }
     public void AddQuest(Quest quest)
@@ -80,14 +88,10 @@ public class QuestManager : Singleton<QuestManager>
             quests.Add(quest);
         }
     }
-    public void AddAtQuest(Quest quest)
+    public void AddAtQuest(Quest quest,int index)
     {
-        quests.Add(null);
-        for (int i = quests.Count - 1; i < 0; i++)
-        {
-            quests[i + 1] = quests[i];
-        }
-        quests[0] = quest;
+        quests.Insert(0,quest);
+        Debug.Log(quests.Count);
     }
     public bool CheckCurrentQuest(Quest quest)
     {

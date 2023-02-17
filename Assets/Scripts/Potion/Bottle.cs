@@ -33,7 +33,7 @@ public class Bottle : MonoBehaviour
     public ColorType colorType;
     public Potion potion;
 
-
+    bool fullTrigger;
     private void OnEnable()
     {
         StageManager.Instance.onSwipeLeft += CheckPotionImageActive;
@@ -98,13 +98,24 @@ public class Bottle : MonoBehaviour
                 if(halfColors.Count == 2)
                 {
                     colorType = MixColors(halfColors[0], halfColors[1]);
-                    Debug.Log("mixed + " + colorType);
+                    if(!fullTrigger)
+                    {
+                        PotionComplateData data = new PotionComplateData(this.potion.color,colorType.ToString(),potion.fillImage.sprite);
+                        GoldAnimBubble.Instance.PotionComplateAnim(this.transform, data);
+                        fullTrigger = true;
+                    }
                 }
             }
         }
         if (currentColorTypeClass.full)
         {
             colorType = currentColorTypeClass.colorType;
+            if(!fullTrigger)
+            {
+                PotionComplateData data = new PotionComplateData(potion.color,colorType.ToString(),potion.fillImage.sprite);
+                GoldAnimBubble.Instance.PotionComplateAnim(this.transform, data);
+                fullTrigger = true;
+            }
         }
         GetComponent<MeshRenderer>().material.SetFloat("_Fill", ((full / capacity) * halfFull*2) - (halfFull));
         this.potion.color = Color.Lerp(this.potion.color, potion.color, fillAmount / full);

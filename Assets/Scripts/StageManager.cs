@@ -15,7 +15,7 @@ public class StageManager : Singleton<StageManager>
     public OnSwipeLeft onSwipeLeft;
     public OnSwipeLeft onSwipeRight;
     
-
+    
     private void Start()
     {
         CheckArrow();
@@ -48,6 +48,12 @@ public class StageManager : Singleton<StageManager>
             return false;
         if(ShakerMovement.Instance.IsCurrentShaker())
             return false;
+        Book [] books = FindObjectsOfType<Book>();
+        foreach (var item in books)
+        {
+            if(item.IsOpen())
+                return false;
+        }
         return true;
     }
     public void ForceLeft()

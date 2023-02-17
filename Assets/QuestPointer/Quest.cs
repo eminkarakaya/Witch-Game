@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Linq;
 public abstract class Quest : MonoBehaviour
 {
-    bool isComplated;
+
     protected GameObject questObject;
     private void OnEnable()
     {

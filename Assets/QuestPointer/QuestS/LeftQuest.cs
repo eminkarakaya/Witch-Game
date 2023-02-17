@@ -6,6 +6,6 @@ public class LeftQuest : Quest
 {
     public override void Trigger()
     {
-        QuestManager.Instance.RemoveQuest(this);
+        // QuestManager.Instance.RemoveQuest(this);
     }
 }

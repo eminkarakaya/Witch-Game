@@ -32,13 +32,33 @@ public class Cauldron : Singleton<Cauldron>
     public List<RecipeList> useableRecipes;
     public List<Recipe> currentRecipe;
     public bool isSelected,isMixed;
+    private const string RECIPE_KEY = "Recipe";
     void OnEnable()
     {
+        // for (int i = 0; i < allRecipes.Count; i++)
+        // {
+        //     if(PlayerPrefs.GetInt(RECIPE_KEY) == 1)
+        //     {
+        //         allRecipes[i].Unlock();
+        //         allRecipes[i].createdObj.SetActive(true);
+        //     }
+        // }
         StageManager.Instance.onSwipeRight += ToggleTrashButton;
         StageManager.Instance.onSwipeLeft += ToggleTrashButton;
     }
     void OnDisable()
     {
+        // for (int i = 0; i < allRecipes.Count; i++)
+        // {
+        //     Debug.Log(allRecipes[i]+ " allRecipes[i])");
+        //     Debug.Log(allRecipes[i].bookRecipe + " allRecipes[i]).bookrecipe");
+        //     if(allRecipes[i].bookRecipe.activeSelf)
+        //     {
+        //         PlayerPrefs.SetInt(RECIPE_KEY,1);
+        //     }
+        //     else
+        //         PlayerPrefs.SetInt(RECIPE_KEY,0);
+        // }
         StageManager.Instance.onSwipeRight -= ToggleTrashButton;
         StageManager.Instance.onSwipeLeft -= ToggleTrashButton;
         
@@ -235,7 +255,8 @@ public class RecipeList
     public GameObject questionMarks;
     public void Unlock()
     {
-        questionMarks.SetActive(false);
+        if(questionMarks!=null)
+            questionMarks.SetActive(false);
         bookRecipe.SetActive(true);
     }
 }

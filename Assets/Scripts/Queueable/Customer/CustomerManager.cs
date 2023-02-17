@@ -21,14 +21,12 @@ public class CustomerManager : MonoBehaviour
 
     private void OnEnable()
     {
-        //totalCustomerCount = PlayerPrefs.GetInt(TOTALCUSTOMER);
-        //savedTotalCustomerCount = PlayerPrefs.GetInt(TOTALCUSTOMER);
     }
 
 
     private void OnDisable()
     {
-        //PlayerPrefs.SetInt(TOTALCUSTOMER, savedTotalCustomerCount);
+        //
     }
 
 
@@ -68,6 +66,7 @@ public class CustomerManager : MonoBehaviour
             }
             FindObjectOfType<Table>().ResetIndex();
             QueueableManager.Instance.SetCustomerIndex();
+            
         }
     }
     

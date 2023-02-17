@@ -479,8 +479,15 @@ MonoBehaviour:
     full: 0
     colorType: 3
     color: {r: 0.5803922, g: 0, b: 0.8666667, a: 1}
+  - half: 0
+    full: 0
+    colorType: 7
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - half: 0
+    full: 0
+    colorType: 10
+    color: {r: 0, g: 1, b: 0, a: 1}
   materialPrefab: {fileID: 2100000, guid: 9b223ba18e6b19443b563f5abc6981e9, type: 2}
-  lerp: 0
   halfFull: 0.5
   colorType: 0
   potion: {fileID: 0}

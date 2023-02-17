@@ -28,7 +28,7 @@ public class CustomerOrder : Order
             if (list.Contains(this))
                 list.Remove(this);
             checkImage.enabled = true;
-            GoldAnimBubble.Instance.EarnGoldAnim2(_gold, transform);
+            GoldAnimBubble.Instance.EarnGoldAnim(_gold, transform);
             AudioSource.PlayClipAtPoint (QueueableManager.Instance.moneyClip,Camera.main.transform.position);
         }
     }

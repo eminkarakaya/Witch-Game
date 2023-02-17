@@ -27,12 +27,15 @@ public class QueueableManager : Singleton<QueueableManager>
     {
         StageManager.Instance.onSwipeRight += CheckButton;
         StageManager.Instance.onSwipeLeft += CheckButton;
+        // totalCustomerCount = PlayerPrefs.GetInt(TOTALCUSTOMER);
+        // savedTotalCustomerCount = PlayerPrefs.GetInt(TOTALCUSTOMER);
+
     }
     void OnDisable()
     {
+        // PlayerPrefs.SetInt(TOTALCUSTOMER, savedTotalCustomerCount);
         StageManager.Instance.onSwipeRight -= CheckButton;
         StageManager.Instance.onSwipeLeft -= CheckButton;
-        
     }
     private void Start()
     {
@@ -45,6 +48,11 @@ public class QueueableManager : Singleton<QueueableManager>
         rejectBtn.SetActive(false);
     }
 
+    public void IncreaseSavedCustomerCount()
+    {
+        Debug.Log("Incerease");
+        savedTotalCustomerCount++;
+    }
 
     public void OpenButtonForSeller()
     {
@@ -105,8 +113,6 @@ public class QueueableManager : Singleton<QueueableManager>
         }
         for (int i = 0; i < queue.Count; i++)
         {
-
-            // queue[i].queueState.oncekiState = queue[i].currState;
             queue[i].queueState.queuePlace = createdQueueTransform[i].position;
             queue[i].queueState.isUpdate = true;
             queue[i].CurrentState = queue[i].queueState;

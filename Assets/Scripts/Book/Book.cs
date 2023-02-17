@@ -19,6 +19,10 @@ public class Book : MonoBehaviour
         oldRot = transform.rotation;
         oldPos = transform.position;
     }
+    public bool IsOpen()
+    {
+        return isOpened;
+    }
     public void OpenBook()
     {
         if (isOpened) return;

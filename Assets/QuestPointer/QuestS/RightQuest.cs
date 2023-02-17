@@ -6,6 +6,7 @@ public class RightQuest : Quest
 {
     public override void Trigger()
     {
+        Debug.Log("triggered");
         QuestManager.Instance.RemoveQuest(this);
     }
 }
