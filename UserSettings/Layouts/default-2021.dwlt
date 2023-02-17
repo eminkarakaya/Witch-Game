@@ -121,7 +121,7 @@ MonoBehaviour:
   m_MinSize: {x: 640, y: 601}
   m_MaxSize: {x: 4000, y: 4021}
   vertical: 0
-  controlID: 29629
+  controlID: 72
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 121}
   m_MaxSize: {x: 4000, y: 4021}
   vertical: 0
-  controlID: 74
+  controlID: 222
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -267,7 +267,7 @@ MonoBehaviour:
   m_MinSize: {x: 500, y: 100}
   m_MaxSize: {x: 40480, y: 8096}
   vertical: 0
-  controlID: 111
+  controlID: 27
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -294,7 +294,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 100}
   m_MaxSize: {x: 32384, y: 8096}
   vertical: 0
-  controlID: 112
+  controlID: 28
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -340,8 +340,8 @@ MonoBehaviour:
     y: 0
     width: 748
     height: 938
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 22}
   m_Panes:
   - {fileID: 22}
@@ -1669,9 +1669,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 4.8313603, y: 6.8355656, z: -3.447636}
+    m_Target: {x: 5.0396204, y: 6.9896936, z: -3.284592}
     speed: 2
-    m_Value: {x: 4.8313603, y: 6.8355656, z: -3.447636}
+    m_Value: {x: 5.0396204, y: 6.9896936, z: -3.284592}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1718,9 +1718,9 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.081353575, y: -0.906672, z: 0.20149025, w: -0.36206636}
+    m_Target: {x: -0.07029729, y: -0.8657973, z: 0.12513752, w: -0.47974655}
     speed: 2
-    m_Value: {x: -0.08364731, y: -0.9037122, z: 0.20367438, w: -0.36718404}
+    m_Value: {x: 0.07029729, y: 0.8657973, z: -0.12513752, w: 0.47974655}
   m_Size:
     m_Target: 0.5498889
     speed: 2
@@ -1781,9 +1781,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
+      m_SelectedIDs: 16890000
       m_LastClickedID: 0
-      m_ExpandedIDs: 600bfaff940cfaff4e22faff7a2bfaffae2cfaff6842faffac4afaffe04bfaff9a61faffce6efaff0670faff2e88fafff0b3fefffcb3feff72e2feff22eefeffdc54ffffe054ffff20e4ffff12e5ffff3ee5ffff50e5ffff58e5ffffc2e5fffff8e5ffff00e6ffffd2e9ffffdae9ffffd8ecffff34fbffff526b0000f26b0000146c0000546c0000526d00007e6d0000566e00006e6e00006c6f0000a66f0000247000003670000088700000c0700000e2700000287100008c710000
+      m_ExpandedIDs: 34fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1849,21 +1849,21 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefabs/Customers
+    - Assets/Scenes
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 0
   m_StartGridSize: 64
   m_LastFolders: []
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: C:\Users\memin\OneDrive\Belgeler\GitHub\Wizard-Game
+  m_LastProjectPath: C:\Users\memin\OneDrive\Belgeler\GitHub\Witch-Game
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: d25b0000
     m_LastClickedID: 23506
-    m_ExpandedIDs: 000000001a8500001c8500001e85000020850000228500002485000026850000288500002a8500002c8500002e85000030850000
+    m_ExpandedIDs: 00000000ce880000d0880000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1891,7 +1891,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff000000001a8500001c850000248500002a8500002c8500002e850000308500009e85000006b5000034b500005c0202006c020200d4470200
+    m_ExpandedIDs: ffffffff00000000ce880000d0880000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1983,7 +1983,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 145.09999
+  m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:
