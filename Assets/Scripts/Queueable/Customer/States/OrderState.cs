@@ -10,6 +10,7 @@ public class OrderState : CustomerStateBase
     [SerializeField] private List<CustomerOrder> order;
     public override void StartState(QueueableAnimations customerAnimations)
     {
+        customerAnimations.Idle();
         speechBubble.SetActive(true);
         InitOrders();
         queueable.transform.LookAt(CustomerManager.Instance.transform);

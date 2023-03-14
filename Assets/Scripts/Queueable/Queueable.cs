@@ -29,10 +29,10 @@ public class Queueable : MonoBehaviour
     private NavMeshAgent agent;
     private void Start()
     {
+        queueableAnimations = GetComponent<QueueableAnimations>();
         agent = GetComponent<NavMeshAgent>();
         agent.speed = queueableData.speed;
         CurrentState = moveState;
-        queueableAnimations = GetComponent<QueueableAnimations>();
         CurrentState.StartState(queueableAnimations);
     }
     private void Update()

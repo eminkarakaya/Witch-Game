@@ -5,9 +5,9 @@ using UnityEngine;
 public class MoveState : CustomerStateBase
 {
     Vector3 pos;
-    public override void StartState(QueueableAnimations customerAnimations)
+    public override void StartState(QueueableAnimations queueableAnimations)
     {
-        
+        queueableAnimations.Walk();
         QueueableManager.Instance.CreateQueue(queueable);
         if(queueable.CheckQueue())
         {
@@ -19,7 +19,7 @@ public class MoveState : CustomerStateBase
 
     public override void UpdateState(QueueableAnimations customerAnimations)
     {
-        if (Vector3.Distance(queueable.transform.position, pos) < .7f)
+        if (Vector3.Distance(queueable.transform.position, pos) < 2f)
         {
             if(queueable.TryGetComponent(out Customer customer))
             {

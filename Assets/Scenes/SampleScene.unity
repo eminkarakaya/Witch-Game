@@ -13292,9 +13292,9 @@ MonoBehaviour:
   - {fileID: 1096742382904227963, guid: 4fdda3ba6534bf244b06576a3be6a2e5, type: 3}
   - {fileID: 1096742382904227963, guid: 5f4d95e5c17471f409d6042a4ecd0c87, type: 3}
   - {fileID: 1096742382904227963, guid: 32c0d66f6e87ffb47a08766931ab6230, type: 3}
-  - {fileID: 1191455366185422369, guid: 27abc3b09119fd74a9639e912d44eaef, type: 3}
   - {fileID: 1096742382904227963, guid: cfe4b64693695164da2f10c9b2af1414, type: 3}
   - {fileID: 1096742382904227963, guid: c031825c0e421c249a13f3b5eec5b414, type: 3}
+  - {fileID: 1191455366185422369, guid: 27abc3b09119fd74a9639e912d44eaef, type: 3}
   - {fileID: 1096742382904227963, guid: fe0a2edc679010f4686efe40153bdbac, type: 3}
   - {fileID: 3095351525816467055, guid: 4718473b6d56ec240a70e052f04cd4cd, type: 3}
   - {fileID: 1096742382904227963, guid: 040130bd5ad878b4fa0669c2481cf82b, type: 3}
@@ -16030,6 +16030,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2209341343111938597, guid: ca458f73bf8c89440995f39bf973d2b6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5806095531800957489, guid: ca458f73bf8c89440995f39bf973d2b6,
         type: 3}
       propertyPath: m_RootOrder

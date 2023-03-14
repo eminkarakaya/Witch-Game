@@ -16,6 +16,7 @@ public class QueueState : CustomerStateBase
     }
     public override void StartState(QueueableAnimations customerAnimations)
     {
+        customerAnimations.Walk();
         queueable = GetComponentInParent<Queueable>();
         queueable.StartMove();
         if (!isUpdate)
@@ -28,7 +29,7 @@ public class QueueState : CustomerStateBase
 
     public override void UpdateState(QueueableAnimations customerAnimations)
     {
-        if (Vector3.Distance(queueable.transform.position, _queuePlace) < .7f)
+        if (Vector3.Distance(queueable.transform.position, _queuePlace) < 2f)
         {
             queueable.CurrentState = queueable.queueWaitState;
         }

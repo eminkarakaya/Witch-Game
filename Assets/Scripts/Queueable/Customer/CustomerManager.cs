@@ -65,7 +65,7 @@ public class CustomerManager : MonoBehaviour
                 Destroy(obj);
             }
             FindObjectOfType<Table>().ResetIndex();
-            QueueableManager.Instance.SetCustomerIndex();
+            // QueueableManager.Instance.SetCustomerIndex();
             
         }
     }

@@ -50,7 +50,6 @@ public class QueueableManager : Singleton<QueueableManager>
 
     public void IncreaseSavedCustomerCount()
     {
-        Debug.Log("Incerease");
         savedTotalCustomerCount++;
     }
 

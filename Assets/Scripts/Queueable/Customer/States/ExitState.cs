@@ -8,6 +8,7 @@ public class ExitState : CustomerStateBase
     Vector3 pos;
     public override void StartState(QueueableAnimations customerAnimations)
     {
+        customerAnimations.Joy();
         QueueableManager.Instance.IncreaseSavedCustomerCount();
         _speechBubble.SetActive(false);
         pos = QueueableManager.Instance.exitTransform.position;

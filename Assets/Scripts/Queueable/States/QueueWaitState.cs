@@ -6,6 +6,7 @@ public class QueueWaitState : CustomerStateBase
 {
     public override void StartState(QueueableAnimations customerAnimations)
     {
+        customerAnimations.Idle();
         queueable = GetComponentInParent<Queueable>();
         queueable.transform.LookAt(QueueableManager.Instance.transform);
         queueable.Stop();
