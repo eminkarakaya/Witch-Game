@@ -78,6 +78,7 @@ public class Cauldron : Singleton<Cauldron>
     }
     public bool CheckWater()
     {
+        
         return bottle.GetCurrentColorFull();
     }
     private void CheckRecipe()

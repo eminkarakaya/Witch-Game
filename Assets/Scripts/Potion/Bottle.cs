@@ -137,7 +137,7 @@ public class Bottle : MonoBehaviour
         }
     }
 
-
+    
 
     public void TogglePotionImage(bool value)
     {

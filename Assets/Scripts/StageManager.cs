@@ -18,7 +18,7 @@ public class StageManager : Singleton<StageManager>
     
     private void Start()
     {
-        CheckArrow();
+        ToggleArrowImages();
     }
     //private void Update()
     //{
@@ -81,7 +81,7 @@ public class StageManager : Singleton<StageManager>
         if (index < stageCount - 1)
         {
             index++;
-            CheckArrow();
+            ToggleArrowImages();
             onSwipeRight?.Invoke();
         }
     }
@@ -92,11 +92,11 @@ public class StageManager : Singleton<StageManager>
         if (index > 0)
         {
             index--;
-            CheckArrow();
+            ToggleArrowImages();
             onSwipeLeft?.Invoke();
         }
     }
-    private void CheckArrow()
+    private void ToggleArrowImages()
     {
         if (index == 0)
         {
@@ -128,7 +128,7 @@ public class StageManager : Singleton<StageManager>
         }
         else
         {   
-            CheckArrow();
+            ToggleArrowImages();
         }
     }
 }

@@ -14,7 +14,10 @@ public class ShakerMovement : Singleton<ShakerMovement>
     [SerializeField] private Shaker _currentShaker;
     
     [SerializeField] bool isShake,isMove;
-    public Shaker CurrentShaker { get; set; }    
+    public bool CheckCurrentShaker()
+    {
+        return _currentShaker != null;
+    }
 
     void Update()
     {
@@ -56,8 +59,14 @@ public class ShakerMovement : Singleton<ShakerMovement>
         }
     }
 
+    public bool CheckWaterSelected()
+    {
+        return Select.SelectManager.Instance.GetSelectedObject() != null;
+    }
+
     public void MoveShaker(GameObject gameObject)
     {
+        if(CheckWaterSelected()) return;
         if(!Cauldron.Instance.CheckShake())  return;
         if(_currentShaker == null) return;
         isMove = true;
@@ -83,10 +92,17 @@ public class ShakerMovement : Singleton<ShakerMovement>
         _closeIcon.SetActive(false);
         _touchIcon.SetActive(false);
         isShake = false;
-        SetCurrentShaker(null);
+        SetCurrentShakerForce(null);
+    }
+    public void SetCurrentShakerForce(Shaker obj)
+    {
+        currentY = 0;
+        _currentShaker = obj;
     }
     public void SetCurrentShaker(Shaker obj)
     {
+        if(!Cauldron.Instance.CheckShake())  return;
+        if(CheckWaterSelected()) return;
         currentY = 0;
         _currentShaker = obj;
     }

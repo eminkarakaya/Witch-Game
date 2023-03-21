@@ -10,8 +10,8 @@ namespace cam.CamController
         [SerializeField] private float _dur;
         [SerializeField] private Vector3[] _rotates;
         private Vector3 _oldCamPos;
-        [SerializeField] private Transform _zoomTransform;
         public Transform potionPos,bookPos;
+        [SerializeField] private Transform potionWaitTransform;
         private void OnEnable()
         {
             SelectManager.Instance.onSelectPotion += ZoomIn;
@@ -37,9 +37,28 @@ namespace cam.CamController
         }
         public void Rotate()
         {
-            transform.DORotate(_rotates[StageManager.Instance.index], _dur).OnComplete(()=> { 
-                
-            });
+            if(StageManager.Instance.index  == StageManager.CAULDRONINDEX)
+            {
+                if(SelectManager.Instance.GetSelectedEmptyObject() != null)
+                {
+                    SelectManager.Instance.GetSelectedEmptyObject().transform.SetParent(potionWaitTransform);
+                    SelectManager.Instance.GetSelectedEmptyObject().transform.localPosition = Vector3.zero;
+                }
+                transform.DORotate(_rotates[StageManager.Instance.index], _dur).OnComplete(()=> { 
+                    
+                });
+            }
+            else
+            {
+                transform.DORotate(_rotates[StageManager.Instance.index], _dur).OnComplete(()=> { 
+            
+                    if(SelectManager.Instance.GetSelectedEmptyObject() != null)
+                    {
+                        SelectManager.Instance.GetSelectedEmptyObject().transform.SetParent(this.transform);
+                    }
+                });
+            }
+            
         }
         public void PosAndRotate(Vector3 pos,Vector3 rot,float dur,System.Action onComplate = null)
         {

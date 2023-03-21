@@ -52,8 +52,11 @@ namespace Select
                     }
                     if (hit.collider.TryGetComponent(out PotionBase potion))
                     {
-                        if (_selectedBasePotion != null)
+                        if(_selectedBasePotion != null ) return;
+                        if(ShakerMovement.Instance.CheckCurrentShaker()) 
+                        {
                             return;
+                        }
                         _selectedBasePotion = hit.collider.transform.parent.gameObject;
                         onSelectPotion?.Invoke(_selectedBasePotion);
                     }
@@ -63,6 +66,11 @@ namespace Select
                     }
                     else if(hit.collider.TryGetComponent(out Cauldron cauldron))
                     {
+                        if(_selectedBasePotion != null ) return;
+                        if(ShakerMovement.Instance.CheckCurrentShaker()) 
+                        {
+                            return;
+                        }
                         cauldron.MoveCamera();
                     }
                     else if(hit.collider.TryGetComponent(out Shaker shaker))
@@ -110,6 +118,7 @@ namespace Select
             onCancelPotion?.Invoke(_selectedBasePotion);
             _selectedBasePotion = null;
         }
+        
         public GameObject GetSelectedObject()
         {
             return _selectedBasePotion;
@@ -117,6 +126,10 @@ namespace Select
         public void NullSelectedEmptyPotion()
         {
             _selectedEmptyPotion = null;
+        }
+        public GameObject GetSelectedEmptyObject()
+        {
+            return _selectedEmptyPotion;
         }
         public void SetEmptyPotion(GameObject gameObject)
         {

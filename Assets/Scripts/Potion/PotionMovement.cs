@@ -14,17 +14,20 @@ public class PotionMovement : Singleton<PotionMovement>
     [SerializeField] private InputData _inputData;
     [SerializeField] private float _dur,_rotationSpeed;
     [SerializeField] private Transform _potionTransform;
+    [SerializeField] private Transform _cauldronEmptyPotionTransform;
    
-    private Vector3 _oldPos;
+    [SerializeField] private Vector3 _oldPos;
     private Quaternion _oldRot;
 
     private void OnEnable()
     {
+
         SelectManager.Instance.onSelectPotion += SelectMove;
         SelectManager.Instance.onCancelPotion += CancelMove;
     }
     private void OnDisable()
     {
+
         SelectManager.Instance.onCancelPotion -= CancelMove;
         SelectManager.Instance.onSelectPotion -= SelectMove;
     }
@@ -32,6 +35,9 @@ public class PotionMovement : Singleton<PotionMovement>
     {
         RotatePotion(SelectManager.Instance.GetSelectedObject());
     }
+
+
+
     private void SelectMove(GameObject gameObject)
     {
         AudioSource.PlayClipAtPoint(clinkSounds[Random.Range(0, clinkSounds.Length)],Camera.main.transform.position);
